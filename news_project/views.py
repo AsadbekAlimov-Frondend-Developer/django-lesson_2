@@ -26,6 +26,11 @@ def home_page_view(request):
     jahon_yangiliklari=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="jahon").order_by("-published_at")[0]
     jahon_yangiliklar=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="jahon").order_by("-published_at")[1:5]
 
+    idtisodiyot_last_news=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="iqtisodiyot").order_by("-published_at")[0]
+    iqtisod_news =News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="iqtisodiyot").order_by("-published_at")[1:5]
+
+    sport_last =News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="sport").order_by("-published_at")[0]
+    sport_last_news =News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="sport").order_by("-published_at")[1:4]
 
     context = {
         'categories': categories,
@@ -34,7 +39,11 @@ def home_page_view(request):
         'uzb_news_last': uzb_news_last,
         'uzb_news': uzb_news,
         'jahon_yangiliklari':jahon_yangiliklari,
-        'jahon_yangiliklar':jahon_yangiliklar
+        'jahon_yangiliklar':jahon_yangiliklar,
+        'idtisodiyot_last_news': idtisodiyot_last_news,
+        'iqtisod_news': iqtisod_news,
+        'sport_last':sport_last,
+        'sport_last_news':sport_last_news
     }
     return render(request, 'news/index.html', context)
 
@@ -60,3 +69,13 @@ def for_base_html(request):
         'news': news
     }
     return render(request, 'news/base.html', context)
+
+
+def category_news(request, ct_name):
+    ct_news = News.objects.select_related("category").filter(status=News.Status.Published,category__name__iexact=ct_name.lower()).order_by("-published_at")
+    context = {
+        'ct_news': ct_news,
+        'ct_name': ct_name
+    }
+    return render(request, 'news/category_news.html', context)
+
