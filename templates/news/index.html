@@ -282,18 +282,14 @@
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="category">
                 <ul>
-                  <li class="cat-item"><a href="#">Sports</a></li>
-                  <li class="cat-item"><a href="#">Fashion</a></li>
-                  <li class="cat-item"><a href="#">Business</a></li>
-                  <li class="cat-item"><a href="#">Technology</a></li>
-                  <li class="cat-item"><a href="#">Games</a></li>
-                  <li class="cat-item"><a href="#">Life &amp; Style</a></li>
-                  <li class="cat-item"><a href="#">Photography</a></li>
+                    {% for category in categories %}
+                  <li class="cat-item"><a href="{% url 'category_news' category.name %}">{{ category.name }}</a></li>
+                    {% endfor %} 
                 </ul>
               </div>
               <div role="tabpanel" class="tab-pane" id="video">
                 <div class="vide_area">
-                  <iframe width="100%" height="250" src="http://www.youtube.com/embed/h5QWbURNEpA?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>
+                  <video controls width="100%" height="250px" > <source src="{{ new_video.video.url }}"> </video>
                 </div>
               </div>
               <div role="tabpanel" class="tab-pane" id="comments">
@@ -327,12 +323,10 @@
             <a class="sideAdd" href="#"><img src="../../static/images/add_img.jpg" alt=""></a> </div>
           <div class="single_sidebar wow fadeInDown">
             <h2><span>Category Archive</span></h2>
-            <select class="catgArchive">
-              <option>Select Category</option>
-              <option>Life styles</option>
-              <option>Sports</option>
-              <option>Technology</option>
-              <option>Treads</option>
+            <select class="catgArchive" id="pageSelect" onchange="goToPage()">
+              {% for item in categories %}
+              <option value="{% url 'category_news' item.name %}" >{{ item.name }}</option>
+              {% endfor %}
             </select>
           </div>
           <div class="single_sidebar wow fadeInDown">
@@ -349,4 +343,15 @@
     </div>
   </section>
   
+<script>
+  function goToPage(){
+    const select = document.getElementById("pageSelect")
+    const url = select.value;
+    if (url){
+      window.location.href = url;
+    }
+  }
+</script>
+
+
 {% endblock content %}

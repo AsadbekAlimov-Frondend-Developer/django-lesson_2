@@ -32,6 +32,13 @@ def home_page_view(request):
     sport_last =News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="sport").order_by("-published_at")[0]
     sport_last_news =News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="sport").order_by("-published_at")[1:4]
 
+    news_video = News.objects.all().order_by('-published_at')
+
+    for i in news_video:
+        if str(i.video) != "":
+            new_video = i
+            break
+
     context = {
         'categories': categories,
         'news': news,
@@ -43,7 +50,8 @@ def home_page_view(request):
         'idtisodiyot_last_news': idtisodiyot_last_news,
         'iqtisod_news': iqtisod_news,
         'sport_last':sport_last,
-        'sport_last_news':sport_last_news
+        'sport_last_news':sport_last_news,
+        'new_video':new_video
     }
     return render(request, 'news/index.html', context)
 
