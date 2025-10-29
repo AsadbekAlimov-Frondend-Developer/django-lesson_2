@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import News, Category
 from .forms import ContactForm
 from django.http import HttpResponse
+from django.views.generic import UpdateView
+
 def all_news(request):
     news = News.objects.all()
     context = {
@@ -9,8 +11,8 @@ def all_news(request):
     }
     return render(request, 'news/all_news.html',context)
 
-def detail(request, pk):
-    new = News.objects.get(id=pk)
+def detail(request, news):
+    new = News.objects.get(slug=news)
     context = {
         'new':new
     }
@@ -39,6 +41,10 @@ def home_page_view(request):
             new_video = i
             break
 
+    moliya_news =News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="moliya").order_by("-published_at")[1:5]
+    images = News.objects.order_by('-published_at')[:6]
+
+
     context = {
         'categories': categories,
         'news': news,
@@ -51,7 +57,9 @@ def home_page_view(request):
         'iqtisod_news': iqtisod_news,
         'sport_last':sport_last,
         'sport_last_news':sport_last_news,
-        'new_video':new_video
+        'new_video':new_video,
+        'moliya_news':moliya_news,
+        'images':images
     }
     return render(request, 'news/index.html', context)
 
@@ -86,4 +94,8 @@ def category_news(request, ct_name):
         'ct_name': ct_name
     }
     return render(request, 'news/category_news.html', context)
+
+class EditView(UpdateView):
+    model = News
+    template_name = 'news/edit_news.html'
 
