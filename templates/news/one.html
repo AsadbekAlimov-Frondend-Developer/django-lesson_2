@@ -20,5 +20,10 @@
     {% else %}
     <img src="{% static 'images/logo.jpg' %}" alt="">
     {% endif %}
+    
+    <div style="margin-bottom: 50px;" >
+        <a style="border: 1px solid black; padding: 10px 25px;background-color: red;color: white;" href="{% url 'delete' new.slug %}">O'chirish</a>
+        <a style="border: 1px solid black; padding: 10px 25px;background-color:yellowgreen;color: white;"  href="{% url 'edit' new.slug %}">O'zgartirish</a>
+    </div>
 </div>
 {% endblock content %}

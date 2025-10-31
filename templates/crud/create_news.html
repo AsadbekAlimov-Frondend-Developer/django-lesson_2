@@ -1,0 +1,15 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<center>
+  <h2>Yaratish</h2>
+</center>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit"
+    style="background-color: red;color: white;border: none;font-weight: bold;">Yaratish</button><br>
+</form><br>
+{% endblock content %}
