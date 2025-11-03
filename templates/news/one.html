@@ -17,8 +17,7 @@
     <video controls width="100%">
         <source src="{{ new.video.url }}" type="video/mp4">
     </video>
-    {% else %}
-    <img src="{% static 'images/logo.jpg' %}" alt="">
+   
     {% endif %}
     
     <div style="margin-bottom: 50px;" >
@@ -26,4 +25,6 @@
         <a style="border: 1px solid black; padding: 10px 25px;background-color:yellowgreen;color: white;"  href="{% url 'edit' new.slug %}">O'zgartirish</a>
     </div>
 </div>
+    
+
 {% endblock content %}

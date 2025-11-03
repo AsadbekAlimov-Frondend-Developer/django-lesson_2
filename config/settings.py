@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'news_project'
+    'news_project',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -125,6 +126,10 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+
+LOGIN_REDIRECT_URL = 'home_page'
+# LOGOUT_REDIRECT_URL = 'home_page'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
